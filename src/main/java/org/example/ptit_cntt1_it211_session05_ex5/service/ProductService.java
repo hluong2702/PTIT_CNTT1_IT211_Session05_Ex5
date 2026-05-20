@@ -45,6 +45,36 @@ public class ProductService {
         return null;
     }
 
+    public Product patchProduct(Long id, ProductCreateDTO productCreateDTO) {
+
+        Optional<Product> optionalProduct = productRepository.findById(id);
+
+        if (optionalProduct.isPresent()) {
+
+            Product product = optionalProduct.get();
+
+            if (productCreateDTO.getName() != null) {
+                product.setName(productCreateDTO.getName());
+            }
+
+            if (productCreateDTO.getDescription() != null) {
+                product.setDescription(productCreateDTO.getDescription());
+            }
+
+            if (productCreateDTO.getPrice() != null) {
+                product.setPrice(productCreateDTO.getPrice());
+            }
+
+            if (productCreateDTO.getQuantity() != null) {
+                product.setQuantity(productCreateDTO.getQuantity());
+            }
+
+            return productRepository.save(product);
+        }
+
+        return null;
+    }
+
     public boolean deleteProduct(Long id) {
         if (productRepository.existsById(id)) {
             productRepository.deleteById(id);

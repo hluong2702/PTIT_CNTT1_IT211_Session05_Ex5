@@ -47,6 +47,20 @@ public class ProductController {
         return ResponseEntity.notFound().build();
     }
 
+    @PatchMapping("/{id}")
+    public ResponseEntity<Product> patchProduct(
+            @PathVariable Long id,
+            @RequestBody ProductCreateDTO productCreateDTO) {
+
+        Product product = productService.patchProduct(id, productCreateDTO);
+
+        if (product != null) {
+            return ResponseEntity.ok(product);
+        }
+
+        return ResponseEntity.notFound().build();
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
         boolean deleted = productService.deleteProduct(id);
